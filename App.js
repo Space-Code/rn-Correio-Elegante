@@ -13,10 +13,81 @@ import {
 import MapView from 'react-native-maps';
 import { DynamicStyleSheet, DynamicValue, useDynamicStyleSheet } from 'react-native-dark-mode'
 import {check, PERMISSIONS, RESULTS} from 'react-native-permissions';
+import Geolocation from '@react-native-community/geolocation';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 
 export default function App() {
 
-	const styles = useDynamicStyleSheet(dynamicStyles)
+  state = {
+    currentLongitude: 'unknown',//Initial Longitude
+    currentLatitude: 'unknown',//Initial Latitude
+  }
+
+  const styles = useDynamicStyleSheet(dynamicStyles);
+  
+  componentDidMount = () => {
+    var that =this;
+    //Checking for the permission just after component loaded
+    if(Platform.OS === 'ios'){
+      this.callLocation(that);
+    }else{
+      async function requestLocationPermission() {
+        try {
+          const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,{
+              'title': 'Location Access Required',
+              'message': 'This App needs to Access your location'
+            }
+          )
+          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            //To Check, If Permission is granted
+            that.callLocation(that);
+          } else {
+            alert("Permission Denied");
+          }
+        } catch (err) {
+          alert("err",err);
+          console.warn(err)
+        }
+      }
+      requestLocationPermission();
+    }    
+  }
+
+  callLocation = (that) => {
+  //alert("callLocation Called");
+    Geolocation.getCurrentPosition(
+      //Will give you the current location
+        (position) => {
+          const currentLongitude = JSON.stringify(position.coords.longitude);
+          //getting the Longitude from the location json
+          const currentLatitude = JSON.stringify(position.coords.latitude);
+          //getting the Latitude from the location json
+          that.setState({ currentLongitude:currentLongitude });
+          //Setting state Longitude to re re-render the Longitude Text
+          that.setState({ currentLatitude:currentLatitude });
+          //Setting state Latitude to re re-render the Longitude Text
+        },
+        (error) => alert(error.message),
+        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+    that.watchID = Geolocation.watchPosition((position) => {
+      //Will give you the location on location change
+        console.log(position);
+        const currentLongitude = JSON.stringify(position.coords.longitude);
+        //getting the Longitude from the location json
+        const currentLatitude = JSON.stringify(position.coords.latitude);
+        //getting the Latitude from the location json
+        that.setState({ currentLongitude:currentLongitude });
+        //Setting state Longitude to re re-render the Longitude Text
+        that.setState({ currentLatitude:currentLatitude });
+        //Setting state Latitude to re re-render the Longitude Text
+    });
+  }
+  componentWillUnmount = () => {
+    Geolocation.clearWatch(this.watchID);
+  }
   
   return (
     <>
@@ -74,10 +145,9 @@ const dynamicStyles = new DynamicStyleSheet({
   },
 
   content: {
-    marginTop: 500,
+    marginTop: hp('55%'),
     height: 200,
     width: Dimensions.get('window').width,
-    //backgroundColor: new DynamicValue('#000000', '#f5f5f5')
   },
 
   cardview: {
@@ -89,7 +159,7 @@ const dynamicStyles = new DynamicStyleSheet({
     width: 300,
     height: 200,
     marginRight: 15,
-    backgroundColor: new DynamicValue('#000000', '#f5f5f5')
+    backgroundColor: new DynamicValue('#c1c1c1', '#f5f5f5')
   },
 
   bottomHeader: {
