@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 
 import { 
   View,
@@ -19,105 +19,64 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 
 export default function App() {
 
-  state = {
-    currentLongitude: 'unknown',//Initial Longitude
-    currentLatitude: 'unknown',//Initial Latitude
-  }
-
   const styles = useDynamicStyleSheet(dynamicStyles);
   
-  componentDidMount = () => {
-    var that =this;
-    //Checking for the permission just after component loaded
-    if(Platform.OS === 'ios'){
-      this.callLocation(that);
-    }else{
-      async function requestLocationPermission() {
-        try {
-          const granted = await PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,{
-              'title': 'Location Access Required',
-              'message': 'This App needs to Access your location'
-            }
-          )
-          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            //To Check, If Permission is granted
-            that.callLocation(that);
-          } else {
-            alert("Permission Denied");
-          }
-        } catch (err) {
-          alert("err",err);
-          console.warn(err)
-        }
-      }
-      requestLocationPermission();
-    }    
-  }
+  const [error, setError] = useState("");
+  const [position, setPosition] = useState({
+    latitude: 0,
+    longitude: 0
+  });
 
-  callLocation = (that) => {
-  //alert("callLocation Called");
-    Geolocation.getCurrentPosition(
-      //Will give you the current location
-        (position) => {
-          const currentLongitude = JSON.stringify(position.coords.longitude);
-          //getting the Longitude from the location json
-          const currentLatitude = JSON.stringify(position.coords.latitude);
-          //getting the Latitude from the location json
-          that.setState({ currentLongitude:currentLongitude });
-          //Setting state Longitude to re re-render the Longitude Text
-          that.setState({ currentLatitude:currentLatitude });
-          //Setting state Latitude to re re-render the Longitude Text
-        },
-        (error) => alert(error.message),
-        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+  useEffect(() => {
+    const watchId = Geolocation.watchPosition(
+    pos => {
+        setError("");
+        setPosition({
+        latitude: pos.coords.latitude,
+        longitude: pos.coords.longitude
+        });
+    },
+    e => setError(e.message)
     );
-    that.watchID = Geolocation.watchPosition((position) => {
-      //Will give you the location on location change
-        console.log(position);
-        const currentLongitude = JSON.stringify(position.coords.longitude);
-        //getting the Longitude from the location json
-        const currentLatitude = JSON.stringify(position.coords.latitude);
-        //getting the Latitude from the location json
-        that.setState({ currentLongitude:currentLongitude });
-        //Setting state Longitude to re re-render the Longitude Text
-        that.setState({ currentLatitude:currentLatitude });
-        //Setting state Latitude to re re-render the Longitude Text
-    });
-  }
-  componentWillUnmount = () => {
-    Geolocation.clearWatch(this.watchID);
-  }
-  
+    return () => Geolocation.clearWatch(watchId);
+  }, []);
+
+  const getPosition = () => {
+    Geolocation.getCurrentPosition(
+      pos => {
+        setError("");
+        setPosition({
+          latitude: pos.coords.latitude,
+          longitude: pos.coords.longitude
+        });
+      },
+      e => setError(e.message)
+    );
+  };
+
   return (
-    <>
-      <View>
-        <MapView
-          style={styles.map}
-          region={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.015,
-            longitudeDelta: 0.0121,
-          }}
-        >
-        </MapView>
-        <Text style={styles.header}>Welcome</Text>
-        <View style={styles.content}>
-          <ScrollView horizontal style={styles.cardview}>
-            <View style={styles.card}></View>
-            <View style={styles.card}></View>
-            <View style={styles.card}></View>
-          </ScrollView>
-        </View>
+    <View>
+      <MapView
+        style={styles.map}
+        region={{
+          latitude: position.latitude,
+          longitude: position.longitude,
+          latitudeDelta: 0.015,
+          longitudeDelta: 0.0121,
+        }}
+      >
+      </MapView>
+      <Text style={styles.header}>Welcome</Text>
+      <View style={styles.content}>
+        <ScrollView horizontal style={styles.cardview}>
+          <View style={styles.card}></View>
+          <View style={styles.card}></View>
+          <View style={styles.card}></View>
+        </ScrollView>
       </View>
-    </>
+    </View>
   );
 }
-
-const mapStyles = StyleSheet.create({
-
-})
 
 const dynamicStyles = new DynamicStyleSheet({
   container: {
@@ -140,6 +99,13 @@ const dynamicStyles = new DynamicStyleSheet({
     paddingHorizontal: 10,
     marginTop: 60,
     fontSize: 35,
+    fontWeight: 'bold',
+    color: new DynamicValue('#000000', '#f5f5f5')
+  },
+  
+  subHeader: {
+    paddingHorizontal: 10,
+    fontSize: 25,
     fontWeight: 'bold',
     color: new DynamicValue('#000000', '#f5f5f5')
   },
