@@ -40,6 +40,7 @@ target 'rncorreioelegante' do
   pod 'GoogleMaps'
   pod 'Google-Maps-iOS-Utils'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   # React Native Permission dependencies
 
