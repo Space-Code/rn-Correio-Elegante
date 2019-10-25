@@ -672,6 +672,11 @@
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.7.4.tgz#a87b4b04e5ae14a88d48ebef15015f6b7d1f5677"
   integrity sha512-kBa+cDHOR9jpRJ+kcGMsysrls0leukrm68DmFQoMIWQcXdr2cZvyvypWuGYT7U+9kAExUE7+T7r6G3C3A6L8MQ==
 
+"@freakycoder/react-native-header-view@^0.4.8":
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/@freakycoder/react-native-header-view/-/react-native-header-view-0.4.8.tgz#0643fafb01a5de737d455aa2f8f83c1a7d5db79c"
+  integrity sha512-LEGVFC1lBIa3MMO/FNKt7mwJGdyG+U46GKg4HNqy+A3Tj6IKIigQ+ji2LmDPu5/TRN399Nmd1WsZHH5LKxNRQw==
+
 "@hapi/address@2.x.x":
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/@hapi/address/-/address-2.1.2.tgz#1c794cd6dbf2354d1eb1ef10e0303f573e1c7222"

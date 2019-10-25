@@ -5,6 +5,7 @@ import {
   Text,
   ScrollView,
   Dimensions,
+  Image
 } from 'react-native';
 
 import MapView from 'react-native-maps';
@@ -67,7 +68,15 @@ export default function App() {
         }}
       >
       </MapView>
-      <Text style={styles.header}>Welcome</Text>
+      <View style={styles.headerView}>
+        <Text style={styles.header}>Welcome</Text>
+        <View style={styles.avatarView}>
+        <Image
+          style={styles.avatar}
+          source={{uri: 'https://cdn3.f-cdn.com/contestentries/1269942/15600440/5a991c82be987_thumb900.jpg'}}
+        />
+        </View>
+      </View>
       <View style={styles.content}>
         <ScrollView horizontal style={styles.cardview}>
           <View style={styles.card}></View>
@@ -96,12 +105,29 @@ const dynamicStyles = new DynamicStyleSheet({
     height: Dimensions.get('window').height
   },
 
+  headerView:{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+
   header: {
     paddingHorizontal: 10,
     marginTop: 60,
     fontSize: hp('4%'),
     fontWeight: 'bold',
     color: new DynamicValue('#000000', '#f5f5f5')
+  },
+
+  avatarView: {
+    paddingHorizontal: 10,
+    marginTop: 60,
+    color: new DynamicValue('#000000', '#f5f5f5')
+  },
+
+  avatar: {
+    width: wp('15%'),
+    height: hp('6%'),
+    borderRadius: 10,
   },
   
   subHeader: {

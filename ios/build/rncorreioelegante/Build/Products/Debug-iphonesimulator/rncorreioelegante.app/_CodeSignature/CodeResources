@@ -755,7 +755,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		8yc5xsWE1/x3+KZ/t7/VA57Elt8=
+		cCVZVtwyZ/48TrBVUAm4wNEGONg=
 		</data>
 		<key>Ionicons.ttf</key>
 		<data>
@@ -787,15 +787,15 @@
 		</data>
 		<key>PlugIns/rncorreioeleganteTests.xctest/Info.plist</key>
 		<data>
-		Z8fhqiM5OLOxvfkk2eZm4rf5iHg=
+		h5YSVPMCalGly3LANhqTtxzd2ME=
 		</data>
 		<key>PlugIns/rncorreioeleganteTests.xctest/_CodeSignature/CodeResources</key>
 		<data>
-		39DlsAkm8gNtmUwKoLLbnkDDL08=
+		7S994YBA2APqxKozrIvcEGLkJXU=
 		</data>
 		<key>PlugIns/rncorreioeleganteTests.xctest/rncorreioeleganteTests</key>
 		<data>
-		gvLt750PBFiiu27UUWYhh0WmZLo=
+		bCYLe9Kz1KBqErTZh9tweYrLAAQ=
 		</data>
 		<key>SimpleLineIcons.ttf</key>
 		<data>
@@ -2409,33 +2409,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Z8fhqiM5OLOxvfkk2eZm4rf5iHg=
+			h5YSVPMCalGly3LANhqTtxzd2ME=
 			</data>
 			<key>hash2</key>
 			<data>
-			AaKhrD+XxUYoBS4Sa8Ey8wC/pw+0cxLZrFgoPYbcmGs=
+			wfkKlRjpRTz6E7EHgZD/vL+EC675NrP5TjIuW+Ngplk=
 			</data>
 		</dict>
 		<key>PlugIns/rncorreioeleganteTests.xctest/_CodeSignature/CodeResources</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			39DlsAkm8gNtmUwKoLLbnkDDL08=
+			7S994YBA2APqxKozrIvcEGLkJXU=
 			</data>
 			<key>hash2</key>
 			<data>
-			sZ9/g4vkFQ6MUESEHS6EZXY1T4RT/KO9dAIkCmDbE2w=
+			EF/Qb3b1NsNfVNwFx9p70X05UBovRugMU66uSGWNl4g=
 			</data>
 		</dict>
 		<key>PlugIns/rncorreioeleganteTests.xctest/rncorreioeleganteTests</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			gvLt750PBFiiu27UUWYhh0WmZLo=
+			bCYLe9Kz1KBqErTZh9tweYrLAAQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			L4CbxOVubdPR6XtyLYIntDBx0TkIDM2mN1hmu2JPbYc=
+			Aged27CUAPBN6UP+3ius9p0Fdn5oApOPCRnc+ROnW1c=
 			</data>
 		</dict>
 		<key>SimpleLineIcons.ttf</key>
